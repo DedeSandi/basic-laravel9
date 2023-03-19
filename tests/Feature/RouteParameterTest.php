@@ -26,4 +26,10 @@ class RouteParameterTest extends TestCase
         $this->get('/categories')->assertSeeText("category : 404");
         $this->get('/categories/22')->assertSeeText("category : 22");
     }
+
+    public function testNamedRoute()
+    {
+        $this->get('/pengguna/12345')->assertSeeText("link : http://localhost/user/12345");
+        $this->get('/pengguna-redirect/12345')->assertRedirect("user/12345");
+    }
 }

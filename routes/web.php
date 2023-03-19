@@ -76,3 +76,19 @@ Route::get('/conflict/{name}', function ($name) {
 Route::get('conflict/susu', function () {
     return "Product : Susu";
 });
+
+// named route
+// cara buatnya
+Route::get('user/{id}', function ($userId) {
+    return "User : $userId";
+})->where('id', '[0-9]+')->name('user.detail');
+
+// cara pakek nya
+Route::get('pengguna/{id}', function ($id) {
+    $link = route('user.detail', ['id' => $id]);
+    return "link : $link";
+});
+
+Route::get('pengguna-redirect/{id}', function ($userId) {
+    return redirect()->route('user.detail', ['id' => $userId]);
+});
