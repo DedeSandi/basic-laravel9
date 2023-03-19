@@ -17,7 +17,7 @@ class ViewTest extends TestCase
 
     public function testViewWithOutRoute()
     {
-       $this->view('hello',['name' => 'Dede'])->assertSeeText('Hello Dede');
-       $this->view('hello.world',['name' => 'Dede'])->assertSeeText('Halo Dede');
+        $this->view('hello', ['name' => 'Dede'])->assertSeeText('Hello Dede');
+        $this->view('hello.world', ['name' => 'Dede'])->assertSeeText('Halo Dede');
     }
 }
