@@ -102,3 +102,6 @@ Route::get('hello/{name}', [App\Http\Controllers\HelloController::class, 'hello'
 
 // bisa spt dbawah ini tapi ingat di atas use App\Http\Controllers\HelloController;
 Route::get('say/{name}', [HelloController::class, 'hello']);
+
+// request
+Route::get('request', [HelloController::class, 'request']);
