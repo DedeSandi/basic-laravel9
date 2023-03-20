@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HelloController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -92,3 +93,12 @@ Route::get('pengguna/{id}', function ($id) {
 Route::get('pengguna-redirect/{id}', function ($userId) {
     return redirect()->route('user.detail', ['id' => $userId]);
 });
+
+// route ke Controller
+// App\Http\Controllers\HelloController::class itu nama Controller
+//  'hello' itu Methodnya
+// route param {name} otomatis akan dikirim ke controller HelloController method hello sbg parameter pertama
+Route::get('hello/{name}', [App\Http\Controllers\HelloController::class, 'hello']);
+
+// bisa spt dbawah ini tapi ingat di atas use App\Http\Controllers\HelloController;
+Route::get('say/{name}', [HelloController::class, 'hello']);

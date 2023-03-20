@@ -6,5 +6,4 @@ interface HelloService
 {
 
     public function hello(string $name): string;
-
 }
