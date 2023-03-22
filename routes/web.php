@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HelloController;
+use App\Http\Controllers\InputController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,24 +46,24 @@ Route::get('/halo', function () {
 
 // route parameter
 // id = any
-Route::get('products/{id}', function ($productId) {
+Route::get('/products/{id}', function ($productId) {
     return "Product Id : $productId";
 });
 
-Route::get('products/{product}/items/{item}', function ($productId, $itemId) {
+Route::get('/products/{product}/items/{item}', function ($productId, $itemId) {
     return 'product : ' . $productId . '| items : ' . $itemId;
 });
 
 // route menggunakan Regex 
 // id hanya angka
 // kalo bukan angka otomatis masuk ke fallback
-Route::get('items/{id}', function ($itemId) {
+Route::get('/items/{id}', function ($itemId) {
     return "item ID : $itemId";
 })->where('id', '[0-9]+');
 
 // optional route parameter, isi tanda tanya (?)
 // jika optional maka harus ada nilai defaultnya
-Route::get('categories/{id?}', function ($defaultId = '404') {
+Route::get('/categories/{id?}', function ($defaultId = '404') {
     return "category : $defaultId";
 });
 
@@ -74,34 +75,49 @@ Route::get('/conflict/{name}', function ($name) {
 });
 
 // ini gak akan jalan
-Route::get('conflict/susu', function () {
+Route::get('/conflict/susu', function () {
     return "Product : Susu";
 });
 
 // named route
 // cara buatnya
-Route::get('user/{id}', function ($userId) {
+Route::get('/user/{id}', function ($userId) {
     return "User : $userId";
 })->where('id', '[0-9]+')->name('user.detail');
 
 // cara pakek nya
-Route::get('pengguna/{id}', function ($id) {
+Route::get('/pengguna/{id}', function ($id) {
     $link = route('user.detail', ['id' => $id]);
     return "link : $link";
 });
 
-Route::get('pengguna-redirect/{id}', function ($userId) {
+Route::get('/pengguna-redirect/{id}', function ($userId) {
     return redirect()->route('user.detail', ['id' => $userId]);
 });
 
 // route ke Controller
 // App\Http\Controllers\HelloController::class itu nama Controller
 //  'hello' itu Methodnya
-// route param {name} otomatis akan dikirim ke controller HelloController method hello sbg parameter pertama
-Route::get('hello/{name}', [App\Http\Controllers\HelloController::class, 'hello']);
+// route param {name} otomatis akan dikirim ke controller HelloController method hello sbg parameter 
+Route::get('/hello/{name}', [App\Http\Controllers\HelloController::class, 'hello']);
 
 // bisa spt dbawah ini tapi ingat di atas use App\Http\Controllers\HelloController;
-Route::get('say/{name}', [HelloController::class, 'hello']);
+Route::get('/say/{name}', [HelloController::class, 'hello']);
 
 // request
-Route::get('request', [HelloController::class, 'request']);
+Route::get('/request', [HelloController::class, 'request']);
+
+// request input
+Route::get('/say-hello', [InputController::class, 'sayHello']);
+Route::post('/say-hello', [InputController::class, 'sayHello']);
+
+// request Nested Input
+Route::post('/hello-first', [InputController::class, 'helloFirstName']);
+
+// get all input
+Route::post('/hello-input', [InputController::class, 'helloInput']);
+
+// get value name di array product
+Route::post('/input-array', [InputController::class, 'helloArray']);
+
+Route::post('/input/input-type', [InputController::class, 'inputType']);
