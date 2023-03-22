@@ -86,11 +86,11 @@ class InputRequestTest extends TestCase
     public function testFilterMerge()
     {
         $this->post('/input/filter-merge', [
-            'user' => [
-                'first' => 'dede',
-                'last' => 'eka',
-                'admin' => 'true'
-            ],
+
+            'first' => 'dede',
+            'last' => 'eka',
+            'admin' => 'true'
+
         ])->assertSeeText('dedse')->assertSeeText('eka')->assertSeeText('false');
     }
 }
