@@ -16,7 +16,7 @@ class InputController extends Controller
     }
 
     // nested input
-    // penggunaan liat di InputRequestTest
+    // penggunaan liat di InputRequestTest -> testNestedInput
     public function helloFirstName(Request $request): string
     {
         $firstName = $request->input('name.first');
@@ -50,5 +50,24 @@ class InputController extends Controller
             'married' => $married,
             'birth-date' => $birthDay->format('Y-m-d')
         ]);
+    }
+
+    public function filterOnly(Request $request): string
+    {
+        $name = $request->only(['name.first', 'name.last']);
+        return json_encode($name);
+    }
+
+    public function filterExcept(Request $request): string
+    {
+        $user = $request->except(['user.admin']);
+        return json_encode($user);
+    }
+
+    public function filterMerge(Request $request): string
+    {
+        $request->merge(['admin' => false]);
+        $user = $request->input();
+        return json_encode($user);
     }
 }

@@ -121,3 +121,6 @@ Route::post('/hello-input', [InputController::class, 'helloInput']);
 Route::post('/input-array', [InputController::class, 'helloArray']);
 
 Route::post('/input/input-type', [InputController::class, 'inputType']);
+Route::post('/input/filter-only', [InputController::class, 'filterOnly']);
+Route::post('/input/filter-except', [InputController::class, 'filterExcept']);
+Route::post('/input/filter-merge', [InputController::class, 'filterMerge']);

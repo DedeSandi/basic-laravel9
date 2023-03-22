@@ -61,4 +61,36 @@ class InputRequestTest extends TestCase
             ],
         )->assertSeeText('budi')->assertSeeText('true')->assertSeeText('1990-10-19');
     }
+
+    public function testFilterOnly()
+    {
+        $this->post('/input/filter-only', [
+            'name' => [
+                'first' => 'dede',
+                'last' => 'eka',
+                'age' => '25'
+            ],
+        ])->assertSeeText('dede')->assertSeeText('eka')->assertDontSeeText('25');
+    }
+
+    public function testFilterExcept()
+    {
+        $this->post('/input/filter-except', [
+            'user' => [
+                'first' => 'dede',
+                'last' => 'eka',
+                'admin' => 'true'
+            ],
+        ])->assertSeeText('dede')->assertSeeText('eka')->assertDontSeeText('true');
+    }
+    public function testFilterMerge()
+    {
+        $this->post('/input/filter-merge', [
+            'user' => [
+                'first' => 'dede',
+                'last' => 'eka',
+                'admin' => 'true'
+            ],
+        ])->assertSeeText('dedse')->assertSeeText('eka')->assertSeeText('false');
+    }
 }
