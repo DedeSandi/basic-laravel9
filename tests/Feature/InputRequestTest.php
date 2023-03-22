@@ -91,6 +91,18 @@ class InputRequestTest extends TestCase
             'last' => 'eka',
             'admin' => 'true'
 
+        ])->assertSeeText('dede')->assertSeeText('eka')->assertSeeText('false');
+    }
+
+    // gagal
+    public function testFilterMergeNested()
+    {
+        $this->post('/input/filter-merge', [
+            'user' => [
+                'first' => 'dede',
+                'last' => 'eka',
+                'admin' => 'true'
+            ]
         ])->assertSeeText('dedse')->assertSeeText('eka')->assertSeeText('false');
     }
 }
