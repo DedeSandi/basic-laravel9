@@ -3,6 +3,7 @@
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\InputController;
+use App\Http\Controllers\ResponseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -129,3 +130,12 @@ Route::post('/input/filter-merge-nest', [InputController::class, 'filterMergeNes
 
 // file upload
 Route::post('/file/upload', [FileController::class, 'upload']);
+
+// response
+Route::get('/response/hello', [ResponseController::class, 'response']);
+Route::get('/response/header', [ResponseController::class, 'header']);
+// response type
+Route::get('/response/type/view', [ResponseController::class, 'responseView']);
+Route::get('/response/type/json', [ResponseController::class, 'responseJson']);
+Route::get('/response/type/file', [ResponseController::class, 'responseFile']);
+Route::get('/response/type/download', [ResponseController::class, 'responseDownload']);
