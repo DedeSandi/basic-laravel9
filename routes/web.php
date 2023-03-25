@@ -155,7 +155,8 @@ Route::get('/redirect/from', [RedirectController::class, 'redirectFrom']);
 
 // redirect to named route
 Route::get('/redirect/name', [RedirectController::class, 'redirectName']);
-Route::get('/redirect/name/{name}', [RedirectController::class, 'redirectHello'])->name('redirect-hello');
+Route::get('/redirect/name/{name}', [RedirectController::class, 'redirectHello'])
+    ->name('redirect-hello');
 
 // redirect to controller action 
 // WALAUPUN REDIRECT KE CONTROLLER, CONTROLLER TUJUAN HARUS TETAP DIDAFTARKAN DI ROUTE EX: redirect-hello ROUTE
@@ -218,4 +219,26 @@ Route::middleware(['contph:EKA,401'])->prefix('/middleware')->group(function () 
     Route::get('/group', function () {
         return 'Group';
     });
+});
+
+// URL generation
+Route::get('/url/current', function () {
+    return \Illuminate\Support\Facades\URL::full();
+});
+
+// URL generation Named Route
+Route::get('/redirect/named', function () {
+    // akan redirect ke route yg namanya 'redirect-hello' (cek diatas).
+    // ===== NB: ketiga nya sama=======
+    // return route('redirect-hello',['name'=>'eka']);
+    // return url()->route('redirect-hello', ['name' => 'eka']);
+    return \Illuminate\Support\Facades\URL::route('redirect-hello', ['name' => 'eka']);
+});
+
+// URL Generation action controller
+
+Route::get('url/action', function () {
+    // return action([FormController::class,'form'],[]);
+    // return url()->action([FormController::class, 'form'], []);
+    return \Illuminate\Support\Facades\URL::action([FormController::class, 'form'], []);
 });
