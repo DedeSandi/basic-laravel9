@@ -103,6 +103,6 @@ class InputRequestTest extends TestCase
                 'last' => 'eka',
                 'admin' => 'true'
             ]
-        ])->assertSeeText('dedse')->assertSeeText('eka')->assertSeeText('false');
+        ])->assertSeeText('dede')->assertSeeText('eka')->assertSeeText('false')->assertDontSeeText('true');
     }
 }

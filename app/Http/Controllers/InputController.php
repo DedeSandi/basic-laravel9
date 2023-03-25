@@ -73,7 +73,7 @@ class InputController extends Controller
 
     public function filterMergeNested(Request $request): string
     {
-        $request->merge(['user' => ['admin' => false]]);
+        $request->merge(['user' => [['admin' => false]]]);
         $user = $request->input();
         return json_encode($user);
     }

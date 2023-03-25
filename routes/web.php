@@ -161,3 +161,20 @@ Route::get('/redirect/action', [RedirectController::class, 'redirectAction']);
 
 // redirect to external domain
 Route::get('/redirect/away', [RedirectController::class, 'redirectAway']);
+
+// middleware
+// 'contoh' adalah alias yg ambil dari $routeMiddleware di Kernel.php di folder Http
+// titik di (:) setelah contoh berarti ada parameter yg dikirim ke ContohMiddleware.php
+// untuk dibawah berarti ada 2 parameter yang dikirim yaitu EKA dan 401
+Route::get('/middleware/api', function () {
+    return 'OK';
+})->middleware(['contoh:EKA,401']);
+
+// group middleware
+Route::get('/middleware/group', function () {
+    return 'Group';
+})->middleware(['contohGroup']);
+
+// file upload with exclude middleware
+Route::post('/file/upload', [FileController::class, 'upload'])
+    ->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class);
