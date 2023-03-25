@@ -137,11 +137,12 @@ Route::post('/file/upload', [FileController::class, 'upload']);
 // response
 Route::get('/response/hello', [ResponseController::class, 'response']);
 Route::get('/response/header', [ResponseController::class, 'header']);
-// response type
-Route::get('/response/type/view', [ResponseController::class, 'responseView']);
-Route::get('/response/type/json', [ResponseController::class, 'responseJson']);
-Route::get('/response/type/file', [ResponseController::class, 'responseFile']);
-Route::get('/response/type/download', [ResponseController::class, 'responseDownload']);
+
+// // response type
+// Route::get('/response/type/view', [ResponseController::class, 'responseView']);
+// Route::get('/response/type/json', [ResponseController::class, 'responseJson']);
+// Route::get('/response/type/file', [ResponseController::class, 'responseFile']);
+// Route::get('/response/type/download', [ResponseController::class, 'responseDownload']);
 
 // cookie
 Route::get('/cookie/set', [CookieController::class, 'createCookie']);
@@ -183,3 +184,38 @@ Route::post('/file/upload', [FileController::class, 'upload'])
 // CSRF
 Route::get('/form', [FormController::class, 'form']);
 Route::post('/form', [FormController::class, 'submitForm']);
+
+// response type with group route
+Route::prefix('/response/type')->group(function () {
+    Route::get('/view', [ResponseController::class, 'responseView']);
+    Route::get('/json', [ResponseController::class, 'responseJson']);
+    Route::get('/file', [ResponseController::class, 'responseFile']);
+    Route::get('/download', [ResponseController::class, 'responseDownload']);
+});
+
+// contoh route middleware
+Route::middleware(['contoh:EKA,401'])->group(function () {
+    Route::get('/middleware/api', function () {
+        return 'OK';
+    });
+    Route::get('/middleware/group', function () {
+        return 'Group';
+    });
+});
+
+// contoh route controller
+Route::controller(CookieController::class)->group(function () {
+    Route::get('/cookie/set', 'createCookie');
+    Route::get('/cookie/get', 'getCookie');
+    Route::get('/cookie/clear', 'clearCookie');
+});
+
+// contoh multiple route group
+Route::middleware(['contph:EKA,401'])->prefix('/middleware')->group(function () {
+    Route::get('/api', function () {
+        return 'OK';
+    });
+    Route::get('/group', function () {
+        return 'Group';
+    });
+});
